@@ -1,0 +1,21 @@
+body { 
+  background: url(../images/background.png);
+}
+
+.navbar-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-nav li {
+  display: inline;
+}
+
+.navbar-nav li a {
+  padding: 3px;
+}
+
+a:link { color: #8F78AD; }
+a:visited { color: #311557; }
+a:hover { color: #6B4E90; }

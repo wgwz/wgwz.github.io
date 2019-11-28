@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> Patching Datetime Objects in Python </title>
+    <link rel="stylesheet" href="../../static/tachyons.min.css?h=d39cd8e4"> 
+    <link rel="stylesheet" href="../../static/styles.css?h=6c4c6431">
+  </head>
+  <body class='pa3'>
+  <header>
+    <nav>
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="../../">
+            Home
+          </a>
+        </li>
+        
+          <li>
+            <a href="../../about/">
+              About Me
+            </a>
+          </li>
+        
+          <li>
+            <a href="../../programming-experience/">
+              Programming
+            </a>
+          </li>
+        
+          <li>
+            <a href="../../teaching/">
+              Teaching
+            </a>
+          </li>
+        
+          <li>
+            <a href="../../contact/">
+              Contact
+            </a>
+          </li>
+        
+          <li class="active">
+            <a href="../../blog/">
+              Blog
+            </a>
+          </li>
+        
+      </ul>
+    </nav>
+  </header>
+  <div class='page'>
+    
+  <h2>Patching Datetime Objects in Python</h2>
+  <div>by Kyle Lawlor</div>
+  <div>Saturday, September 23, 2017<div>
+  <div><h2>Problem: Patching a <code>datetime</code> object</h2>
+<pre><code># Code for this blog post:
+git clone https://github.com/wgwz/patching-datetime-objects.git
+
+# Checkout the code for section 1 and 2 respectively
+git checkout 1a 
+git checkout 2a
+
+# Running the code:
+python3 lib.py
+</code></pre>
+<h3>Why can patching a <code>datetime</code> object be a problem?</h3>
+<p>Python places some restrictions patching builtin's, and <code>datetime</code> is a builtin.
+I won't say that patching <code>datetime</code> objects is incredibly important.
+But it is definitely useful, for the sake of thorough unit testing.
+i.e. If you hard-code a date or time in your tests, without patching, your 
+tests will fail when they get run on a different day.</p>
+<p>This post will demonstrate the pitfall I ran into, and the way I currently
+patch the <code>datetime</code> object. 
+Presumably the pitfalls in patching other builtin objects are similar, and the 
+method here can be applied to those as well.</p>
+<h3>1. How does patching <code>datetime.utcnow</code> fail?</h3>
+<p><em>When you patch <code>datetime.utcnow</code> directly.</em></p>
+<pre><code>@patch('__main__.datetime.utcnow')
+def test_get_function(self, mock_utcnow):
+    mock_utcnow.return_value = 'pAtChEd'
+    assert get() == 'pAtChEd' 
+</code></pre>
+<p>To me this seems like a pretty reasonable approach. 
+But alas, we cannot patch builtins.
+When you run this code, we get the following error message:</p>
+<pre><code>TypeError: can't set attributes of built-in/extension type 'datetime.datetime'
+</code></pre>
+<h3>2. How to solve the problem:</h3>
+<p><em>Patch the <code>datetime</code> object instead.</em></p>
+<pre><code>@patch('__main__.datetime')
+def test_get_function(self, mock_dt):
+    mock_dt.utcnow.return_value = 'pAtChEd'
+    assert get() == 'pAtChEd' 
+</code></pre>
+<p>The solution is mock the <code>datetime</code> object in it's entirety.
+Then specify that the mock <code>datetime</code> object should return a given value, when
+the method <code>utcnow</code> is called:</p>
+<pre><code>mock_dt.utcnow.return_value = 'pAtChEd'
+</code></pre>
+<h3>Wrapping up:</h3>
+<p>And there we have it.
+When you run into this type of error during mocking, patch at a higher-level!</p>
+<p>Happy unit-testing! 🐐</p>
+</div>
+
+  </div>
+  </body>
+  <footer class='f7'>
+    &copy; Copyright 2017 by Kyle Lawlor
+    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+      <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" />
+    </a>
+    <br />
+    This work is licensed under a 
+    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+      Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+    </a>.
+  </footer>
+</html>

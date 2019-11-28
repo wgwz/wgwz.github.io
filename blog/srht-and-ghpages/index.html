@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> srht and ghpages </title>
+    <link rel="stylesheet" href="../../static/tachyons.min.css?h=d39cd8e4"> 
+    <link rel="stylesheet" href="../../static/styles.css?h=6c4c6431">
+  </head>
+  <body class='pa3'>
+  <header>
+    <nav>
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="../../">
+            Home
+          </a>
+        </li>
+        
+          <li>
+            <a href="../../about/">
+              About Me
+            </a>
+          </li>
+        
+          <li>
+            <a href="../../programming-experience/">
+              Programming
+            </a>
+          </li>
+        
+          <li>
+            <a href="../../teaching/">
+              Teaching
+            </a>
+          </li>
+        
+          <li>
+            <a href="../../contact/">
+              Contact
+            </a>
+          </li>
+        
+          <li class="active">
+            <a href="../../blog/">
+              Blog
+            </a>
+          </li>
+        
+      </ul>
+    </nav>
+  </header>
+  <div class='page'>
+    
+  <h2>srht and ghpages</h2>
+  <div>by Kyle Lawlor</div>
+  <div>Wednesday, November 27, 2019<div>
+  <div><p>For a while now I've been not super excited about maintaining my
+website. A big part of that was the fact that I chose a complicated
+infrastructure for hosting my host. At some point in time I decided it
+would be cool to host my website on a VPS using nginx and maintaining my
+own ssl certificates using certbot. Suffice to say that got hard to
+maintain quickly.</p>
+<p>This post will be covering the new setup I have in place that is much
+simpler and easy to maintain for many reasons. The architecture looks
+like so:</p>
+<pre><code>        +----------------------+
+Step 6. |https://wgwz.github.io|
+        +----------------------+
+Step 5. |ghpages               |
+        +----------------------+
+Step 4. |https://builds.sr.ht  |
+        +-------------------------------+
+Step 3. |https://git.sr.ht/~wgwz/my-site|
+        +----------------------+--------+
+Step 2. |git commit &amp;&amp; git push|
+        +-------------+--------+
+Step 1. |edit my-site/|
+        +-------------+
+</code></pre>
+<p>The interesting stuff happens between steps 3, 4 and 5. The git
+repository contains a ".build.yml" file:</p>
+<pre><code>image: alpine/edge
+secrets:
+  - 1c7823a9-63c2-432e-adca-39371c08e665
+  - 47845823-510e-4d5b-8016-544743c51470
+packages:
+  - python3-dev
+  - libffi-dev
+  - openssl-dev
+sources:
+  - git@git.sr.ht:~wgwz/my-site
+tasks:
+  - check-branch: | 
+      cd my-site 
+      if [ "$(git rev-parse master)" != "$(git rev-parse HEAD)" ]; then \
+        complete-build; \
+      fi
+  - setup: |
+      cd my-site
+      pip3 install --user lektor
+  - build: |
+      cd my-site
+      ~/.local/bin/lektor build
+  - deploy: |
+      cd my-site
+      ~/.local/bin/lektor deploy --username=wgwz --password=$(cat ~/.gh_personal_access_token) ghpages
+shell: false
+</code></pre>
+<p>With a bit of fancy footwork on the sourcehut side of things I can
+install my static site manager "lektor", store some secrets like
+ssh-keys or github access tokens and set up tasks that execute regular
+commands.</p>
+<p>At the end of the day my workflow for publishing new content on my
+website is to make edits, commit my changes and push them to my version
+control system. After that a build process gets fired off and within a
+few minutes my static site management tool "lektor" has force pushed
+updates to my ghpages using a personal access token.</p>
+<p>Type, commit and push :-)</p>
+</div>
+
+  </div>
+  </body>
+  <footer class='f7'>
+    &copy; Copyright 2017 by Kyle Lawlor
+    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+      <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" />
+    </a>
+    <br />
+    This work is licensed under a 
+    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+      Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+    </a>.
+  </footer>
+</html>

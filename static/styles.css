@@ -1,5 +1,5 @@
 body { 
-  background: url(../images/background.png);
+  #background: url(../images/background.png);
 }
 
 .navbar-nav {
@@ -19,3 +19,21 @@ body {
 a:link { color: #8F78AD; }
 a:visited { color: #311557; }
 a:hover { color: #6B4E90; }
+
+pre {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    border-left: 3px solid #7582a3;
+    border-radius: 2px;
+    color: #666;
+    page-break-inside: avoid;
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-bottom: 1.6em;
+    max-width: 100%;
+    overflow: auto;
+    padding: 1em 1.5em;
+    display: block;
+    word-wrap: break-word;
+}

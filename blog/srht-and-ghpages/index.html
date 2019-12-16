@@ -54,15 +54,24 @@
   <h2>srht and ghpages</h2>
   <div>by Kyle Lawlor</div>
   <div>Wednesday, November 27, 2019<div>
-  <div><p>For a while now I've been not super excited about maintaining my
-website. A big part of that was the fact that I chose a complicated
-infrastructure for hosting my host. At some point in time I decided it
-would be cool to host my website on a VPS using nginx and maintaining my
-own ssl certificates using certbot. Suffice to say that got hard to
-maintain quickly.</p>
-<p>This post will be covering the new setup I have in place that is much
-simpler and easy to maintain for many reasons. The architecture looks
-like so:</p>
+  <div><p>Lately I have been not excited about maintaining my site or adding new
+content to it. That was mainly because of the fact that maintaining
+domain names for my personal site is not something I want to do. The
+same goes for SSL certificates although I do have a pretty convenient
+system for updating them using the EFF's <a href="https://certbot.eff.org/">certbot</a>.</p>
+<p><strong>TL;DR</strong> I want to be able to focus on my sites content over anything
+else.</p>
+<p>This post will be covering the new setup I have in place. There are a
+few components in the way my site is now deployed.</p>
+<ol>
+<li><a href="https://pages.github.com/">Github Pages</a></li>
+<li><a href="https://sourcehut.org/">Sourcehut</a></li>
+<li><a href="https://www.getlektor.com/">Lektor</a></li>
+</ol>
+<p>All three of these components are interesting technologies in and of
+themselves but #2 is the one I will focus on the most in this post. It
+should be noted that #3 also made this setup much easier, as it contains
+a toolset meant for integrating to #1.</p>
 <pre><code>        +----------------------+
 Step 6. |https://wgwz.github.io|
         +----------------------+
@@ -106,16 +115,32 @@ tasks:
       ~/.local/bin/lektor deploy --username=wgwz --password=$(cat ~/.gh_personal_access_token) ghpages
 shell: false
 </code></pre>
-<p>With a bit of fancy footwork on the sourcehut side of things I can
+<p>Often times when I see configuration files like this I get quite nervous
+in the sense that I wonder how the file was created. Testing these files
+can be quite difficult. I want to emphasize that experience creating
+this file was quite pleasant. It's something you should just go and try
+for yourself on sourcehut. Basically you are given a simple text box and
+you can start from scratch and build up precisely the file you need.
+Furthermore you can ssh into a live instance of your build at each
+iteration. This is extremely helpful as you can take a look at what is
+going on in the file system at every step of the way. Another thing that
+I really appreciated was that there were very few quirks to the way that
+the container was structured in terms filesystem layouts and other linux
+stuff.</p>
+<p>So with a bit of fancy footwork on the sourcehut side of things I can
 install my static site manager "lektor", store some secrets like
 ssh-keys or github access tokens and set up tasks that execute regular
-commands.</p>
+commands. Figuring out how to use secrets on sourcehut was quite
+straightforward as well. But something that I definitely will need to
+verify I am doing correctly and securely. I'm also certain that the way
+I am cat-ing my github personal access token in the build file is a bad
+practice.</p>
 <p>At the end of the day my workflow for publishing new content on my
-website is to make edits, commit my changes and push them to my version
-control system. After that a build process gets fired off and within a
-few minutes my static site management tool "lektor" has force pushed
-updates to my ghpages using a personal access token.</p>
-<p>Type, commit and push :-)</p>
+website is to make edits locally, commit my changes locally and push
+them to my version control system. After that a build process gets fired
+off and within a few minutes my static site management tool "lektor" has
+force pushed updates to my ghpages using a personal access token.</p>
+<p>Type, commit and push. Feels like a cool breeze on a hot day. :-)</p>
 </div>
 
   </div>

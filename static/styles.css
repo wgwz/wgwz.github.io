@@ -16,9 +16,6 @@ body {
   padding: 3px;
 }
 
-a:link { color: #8F78AD; }
-a:visited { color: #311557; }
-a:hover { color: #6B4E90; }
 
 pre {
     background: #f4f4f4;

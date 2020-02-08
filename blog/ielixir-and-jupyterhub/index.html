@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> IElixir and Jupyter Lab </title>
+    <link rel="stylesheet" href="../../static/tachyons.min.css?h=d39cd8e4"> 
+    <link rel="stylesheet" href="../../static/styles.css?h=ebff6087">
+  </head>
+  <body class='pa3 helvetica fl w-100'>
+  <header>
+    <nav>
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="../../">
+            Home
+          </a>
+        </li>
+        
+          <li>
+            <a href="../../about/">
+              About Me
+            </a>
+          </li>
+        
+          <li>
+            <a href="../../programming-experience/">
+              Programming
+            </a>
+          </li>
+        
+          <li>
+            <a href="../../teaching/">
+              Teaching
+            </a>
+          </li>
+        
+          <li>
+            <a href="../../contact/">
+              Contact
+            </a>
+          </li>
+        
+          <li class="active">
+            <a href="../../blog/">
+              Blog
+            </a>
+          </li>
+        
+      </ul>
+    </nav>
+  </header>
+  <div class='page measure lh-copy'>
+    
+  <h2>IElixir and Jupyter Lab</h2>
+  <div>by Kyle Lawlor-Bagcal</div>
+  <div>Saturday, February 8, 2020<div>
+  <div><p>I really enjoy working in Jupyter Lab for taking markdown notes as I am reading or throwing together short little code snippets as I am learning something new. As such when I am learning a new language, such as Elixir I often want to reach out for a similar tool. A few months ago I came across this article and now I've finally set up a working IElixir kernel to use.</p>
+<p>What this gets me is an environment where I can write snippets of Elixir code, just like I would for prototyping with Python. That said, the setup I will be writing about here is very simplistic. I'm sure many others have taken Python set ups in Jupyter lab much farther than I have. In any case this post will share the few steps you need to get IElixir running and connected to Jupyter lab. If you haven't <a href="https://github.com/jupyterlab/jupyterlab#getting-started">installed jupyter lab</a> that should be as simple as doing:</p>
+<pre><code class="lang-bash">$ pip install --user jupyterlab
+</code></pre>
+<p>The first step will be getting <a href="https://github.com/pprzetacznik/IElixir">IElixir</a> installed, the official instructions can be <a href="https://github.com/pprzetacznik/IElixir#configure-ielixir">found here</a>. This of course assumes you have <a href="https://elixir-lang.org/install.html">Elixir installed</a> on your system. Another dependency that I needed to install for IElixir was <code>zeromq-devel</code> which you can get in your package manager or <a href="https://zeromq.org/download/">follow here</a>. Once you've got IElixir and Jupyterlab installed, there are two steps left:</p>
+<p>Start up the IElixir kernel process and leave that running:</p>
+<pre><code>$ ~/.local/bin/jupyter kernel --kernel=ielixir                                                                                                                      
+[KernelApp] Starting kernel 'ielixir'
+[KernelApp] Connection file: /home/wgwz/.local/share/jupyter/runtime/kernel-39b05ef7-4c4f-4b23-8b71-21d1306ef9d6.json                                                                        
+[KernelApp] To connect a client: --existing kernel-39b05ef7-4c4f-4b23-8b71-21d1306ef9d6.json
+</code></pre>
+<p>Start up jupyter lab as usual:</p>
+<pre><code>$ jupyter lab
+</code></pre>
+<p>Then when you open up the launcher window in Jupyter lab you we will see an option for Elixir. You'll be able to open up a terminal or a notebook, just the same as you would with Python. And profit!</p>
+<p>References:</p>
+</div>
+
+  </div>
+  </body>
+  <footer class='f7'>
+    &copy; Copyright 2017 by Kyle Lawlor
+    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+      <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" />
+    </a>
+    <br />
+    This work is licensed under a 
+    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+      Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+    </a>.
+  </footer>
+</html>

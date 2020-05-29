@@ -3,12 +3,14 @@
   <head>
     <meta charset="utf-8">
     <title> IElixir and Jupyter Lab </title>
-    <link rel="stylesheet" href="../../static/tachyons.min.css?h=d39cd8e4"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../static/tachyons.min.css?h=d39cd8e4">
+    <link rel="stylesheet" href="https://unpkg.com/turretcss/dist/turretcss.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="../../static/styles.css?h=565d2cdc">
   </head>
-  <body class="pa4 black-80">
+  <body class="container pa4 black-80">
     <header>
-      <nav>
+      <nav class="container">
         <ul class="nav navbar-nav">
           <li>
             <a href="../../">
@@ -63,33 +65,32 @@ kernel to use.</p>
 would for prototyping with Python. That said, the setup I will be writing about here is
 very simplistic. I'm sure many others have taken Python set ups in Jupyter lab much
 farther than I have. In any case this post will share the few steps you need to get
-IElixir running and connected to Jupyter lab. If you haven't [installed jupyter lab][6]
+IElixir running and connected to Jupyter lab. If you haven't <a href="https://github.com/jupyterlab/jupyterlab#getting-started">installed jupyter lab</a>
 that should be as simple as doing:</p>
-<p><code>bash $ pip install --user jupyterlab</code></p>
-<p>The first step will be getting [IElixir][1] installed, the official instructions can be
-[found here][3]. This of course assumes you have [Elixir installed][4] on your system.
+<pre><code class="lang-bash">$ pip install --user jupyterlab
+</code></pre>
+<p>The first step will be getting <a href="https://github.com/pprzetacznik/IElixir">IElixir</a> installed, the official instructions can be
+<a href="https://github.com/pprzetacznik/IElixir#configure-ielixir">found here</a>. This of course assumes you have <a href="https://elixir-lang.org/install.html">Elixir installed</a> on your system.
 Another dependency that I needed to install for IElixir was <code>zeromq-devel</code> which you can
-get in your package manager or [follow here][5]. Once you've got IElixir and Jupyterlab
+get in your package manager or <a href="https://zeromq.org/download/">follow here</a>. Once you've got IElixir and Jupyterlab
 installed, there are two steps left:</p>
-<p>Start up the IElixir kernel process and leave that running: <code>$ ~/.local/bin/jupyter
-kernel --kernel=ielixir [KernelApp] Starting kernel 'ielixir' [KernelApp] Connection file:
+<p>Start up the IElixir kernel process and leave that running:</p>
+<pre><code>$ ~/.local/bin/jupyter kernel --kernel=ielixir
+[KernelApp] Starting kernel 'ielixir' [KernelApp] Connection file:
 /home/wgwz/.local/share/jupyter/runtime/kernel-39b05ef7-4c4f-4b23-8b71-21d1306ef9d6.json
 [KernelApp] To connect a client: --existing
-kernel-39b05ef7-4c4f-4b23-8b71-21d1306ef9d6.json</code></p>
+kernel-39b05ef7-4c4f-4b23-8b71-21d1306ef9d6.json
+</code></pre>
 <p>Start up jupyter lab as usual:</p>
-<p><code>$ jupyter lab</code></p>
+<pre><code>$ jupyter lab
+</code></pre>
 <p>Then when you open up the launcher window in Jupyter lab you we will see an option for
 Elixir. You'll be able to open up a terminal or a notebook, just the same as you would
 with Python. And profit!</p>
-<p>[1]: <a href="https://github.com/pprzetacznik/IElixir">https://github.com/pprzetacznik/IElixir</a> [2]:
-<a href="https://medium.com/@tonyhammond/jupyter-notebooks-with-elixir-and-rdf-598689c2dad3">https://medium.com/@tonyhammond/jupyter-notebooks-with-elixir-and-rdf-598689c2dad3</a> [3]:
-<a href="https://github.com/pprzetacznik/IElixir#configure-ielixir">https://github.com/pprzetacznik/IElixir#configure-ielixir</a> [4]:
-<a href="https://elixir-lang.org/install.html">https://elixir-lang.org/install.html</a> [5]: <a href="https://zeromq.org/download/">https://zeromq.org/download/</a> [6]:
-<a href="https://github.com/jupyterlab/jupyterlab#getting-started">https://github.com/jupyterlab/jupyterlab#getting-started</a></p>
 </div>
 
     </div>
-    <footer class="fl w-100 measure f7">
+    <footer class="container fl w-100 f7">
       &copy; Copyright 2020 by Kyle Lawlor
       <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
         <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" />

@@ -3,12 +3,14 @@
   <head>
     <meta charset="utf-8">
     <title> Deploying Flask App&#39;s with Apache and mod_wsgi </title>
-    <link rel="stylesheet" href="../../static/tachyons.min.css?h=d39cd8e4"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../static/tachyons.min.css?h=d39cd8e4">
+    <link rel="stylesheet" href="https://unpkg.com/turretcss/dist/turretcss.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="../../static/styles.css?h=565d2cdc">
   </head>
-  <body class="pa4 black-80">
+  <body class="container pa4 black-80">
     <header>
-      <nav>
+      <nav class="container">
         <ul class="nav navbar-nav">
           <li>
             <a href="../../">
@@ -82,8 +84,8 @@ has an <code>application</code> object defined in it.</p>
 done (<code>docker container stop</code>).</p>
 <h3>Deploying elsewhere:</h3>
 <p>What if you can't use Docker, no problem!  It requires a bit more work, but don't worry.
-This documentation on <a href="https://virtualenv.pypa.io/en/stable/userguide/#using-virtualenv-without-bin-python"><code>virtualenv</code></a> is important.  Also the Flask docs have [a section
-on mod_wsgi][2] that is very relevant.</p>
+This documentation on <a href="https://virtualenv.pypa.io/en/stable/userguide/#using-virtualenv-without-bin-python"><code>virtualenv</code></a> is important.  Also the Flask docs have <a href="http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/#working-with-virtual-environments">a section
+on mod_wsgi</a> that is very relevant.</p>
 <h4>In a nutshell:</h4>
 <p>This <code>wsgi.py</code> file becomes this for Python 3 (for Python):</p>
 <pre><code>import os
@@ -109,12 +111,10 @@ for that.</p>
 <p><strong>But</strong> eventually <code>mod_wsgi</code> will be looking for <code>wsgi.py</code> set up as above.</p>
 <p><strong>Note</strong>: <code>mod_wsgi</code> can read from <code>.py</code> files, but it seems to be a standard to read from
 <code>.wsgi</code> files (but they are just Python files AFAICT).</p>
-<p>[2]:
-<a href="http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/#working-with-virtual-environments">http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/#working-with-virtual-environments</a></p>
 </div>
 
     </div>
-    <footer class="fl w-100 measure f7">
+    <footer class="container fl w-100 f7">
       &copy; Copyright 2020 by Kyle Lawlor
       <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
         <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" />

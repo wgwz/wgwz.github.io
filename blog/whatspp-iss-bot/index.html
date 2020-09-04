@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> WhatsApp ISS Bot </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../static/tachyons.min.css?h=d39cd8e4">
+    <link rel="stylesheet" href="../../static/turretcss.min.css?h=0f187b09">
+    <link rel="stylesheet" href="../../static/styles.css?h=565d2cdc">
+  </head>
+  <body class="container pa4 black-80">
+    <header>
+      <nav class="container">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="../../">
+              Home
+            </a>
+          </li>
+          
+            <li>
+              <a href="../../about/">
+                About Me
+              </a>
+            </li>
+          
+            <li>
+              <a href="../../programming-experience/">
+                Programming
+              </a>
+            </li>
+          
+            <li>
+              <a href="../../teaching/">
+                Teaching
+              </a>
+            </li>
+          
+            <li>
+              <a href="../../contact/">
+                Contact
+              </a>
+            </li>
+          
+            <li class="active">
+              <a href="../">
+                Blog
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
+    </header>
+    <div class="fl w-100 pa3 measure-wide f4 lh-copy">
+      
+  <h2>WhatsApp ISS Bot</h2>
+  <div>by Kyle Lawlor-Bagcal</div>
+  <div>Friday, September 4, 2020<div>
+  <div><p>So I have been working on a WhatsApp bot for an article that I'm in
+process of writing. I've been slacking hard on the article, but it's
+been a great learning opportunity. I've finally figured out a way to
+deploy the bot, using some fancy tech on AWS. Perhaps I'll add more
+details about that later.</p>
+<p>For now I just wanted a place to publish some information about the
+bot. So here are the instructions to make use of it!</p>
+<ol>
+<li>From WhatsApp, send the following code to +14155238886, "join nodded-pile".</li>
+<li>Send any message to the bot once you've joined successfully.</li>
+<li>You'll get some instructions from the bot sent back to you.</li>
+</ol>
+<p>What the heck does the bot do???!!</p>
+<p>When you send the bot your location from WhatsApp, the bot reaches out
+to various APIs, and does it's best to calculate the several times that
+the International Space Station will be visible from your location. It
+doesn't take into account weather conditions yet, but it does take into
+the time the sun will setting at your location.</p>
+<p>The bot will give you additional info about how to look for the ISS as
+well. But there is room for improvement. It turns out the calculating the
+precise compass direction and angle of elevation that the ISS will be flying
+by at is fairly tricky! Maybe a future version of the bot will do this
+better.</p>
+</div>
+
+    </div>
+    <footer class="container fl w-100 f7">
+      &copy; Copyright 2020 by Kyle Lawlor
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" />
+      </a>
+      <br />
+      This work is licensed under a 
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+        Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+      </a>.
+    </footer>
+  </body>
+</html>

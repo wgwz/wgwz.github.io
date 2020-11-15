@@ -61,7 +61,7 @@
 git clone https://github.com/wgwz/patching-datetime-objects.git
 
 # Checkout the code for section 1 and 2 respectively
-git checkout 1a 
+git checkout 1a
 git checkout 2a
 
 # Running the code:
@@ -71,20 +71,20 @@ python3 lib.py
 <p>Python places some restrictions patching builtin's, and <code>datetime</code> is a builtin.
 I won't say that patching <code>datetime</code> objects is incredibly important.
 But it is definitely useful, for the sake of thorough unit testing.
-i.e. If you hard-code a date or time in your tests, without patching, your 
+i.e. If you hard-code a date or time in your tests, without patching, your
 tests will fail when they get run on a different day.</p>
 <p>This post will demonstrate the pitfall I ran into, and the way I currently
-patch the <code>datetime</code> object. 
-Presumably the pitfalls in patching other builtin objects are similar, and the 
+patch the <code>datetime</code> object.
+Presumably the pitfalls in patching other builtin objects are similar, and the
 method here can be applied to those as well.</p>
 <h3>1. How does patching <code>datetime.utcnow</code> fail?</h3>
 <p><em>When you patch <code>datetime.utcnow</code> directly.</em></p>
 <pre><code>@patch('__main__.datetime.utcnow')
 def test_get_function(self, mock_utcnow):
     mock_utcnow.return_value = 'pAtChEd'
-    assert get() == 'pAtChEd' 
+    assert get() == 'pAtChEd'
 </code></pre>
-<p>To me this seems like a pretty reasonable approach. 
+<p>To me this seems like a pretty reasonable approach.
 But alas, we cannot patch builtins.
 When you run this code, we get the following error message:</p>
 <pre><code>TypeError: can't set attributes of built-in/extension type 'datetime.datetime'
@@ -94,7 +94,7 @@ When you run this code, we get the following error message:</p>
 <pre><code>@patch('__main__.datetime')
 def test_get_function(self, mock_dt):
     mock_dt.utcnow.return_value = 'pAtChEd'
-    assert get() == 'pAtChEd' 
+    assert get() == 'pAtChEd'
 </code></pre>
 <p>The solution is mock the <code>datetime</code> object in it's entirety.
 Then specify that the mock <code>datetime</code> object should return a given value, when

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> Python networkx and graphviz </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../static/tachyons.min.css?h=d39cd8e4">
+    <link rel="stylesheet" href="../../static/turretcss.min.css?h=0f187b09">
+    <link rel="stylesheet" href="../../static/styles.css?h=565d2cdc">
+  </head>
+  <body class="container pa4 black-80">
+    <header>
+      <nav class="container">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="../../">
+              Home
+            </a>
+          </li>
+          
+            <li>
+              <a href="../../about/">
+                About Me
+              </a>
+            </li>
+          
+            <li>
+              <a href="../../programming-experience/">
+                Programming
+              </a>
+            </li>
+          
+            <li>
+              <a href="../../teaching/">
+                Teaching
+              </a>
+            </li>
+          
+            <li>
+              <a href="../../contact/">
+                Contact
+              </a>
+            </li>
+          
+            <li class="active">
+              <a href="../">
+                Blog
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
+    </header>
+    <div class="fl w-100 pa3 measure-wide f4 lh-copy">
+      
+  <h2>Python networkx and graphviz</h2>
+  <div>by Kyle Lawlor-Bagcal</div>
+  <div>Monday, November 23, 2020<div>
+  <div><p>I wanted to write up two tools that I used recently to solve a code golf problem on project euler.
+The first tool is a library called <a href="https://networkx.org/documentation/latest/index.html">networkx</a>
+and the second is a tool called <a href="https://graphviz.org/about/">graphviz</a>.</p>
+<p>They are both advanced tools for solving a wide range of problems. With a little bit of elbow grease
+you can get a lot done with them. I'm going to start with describing the problem I was trying to
+solve.</p>
+<p>Suppose you have a lattice like this:</p>
+<p><img src="graph.png" alt="Longest path through a lattice"></p>
+<p>The path highlighted in red shows the longest path through the lattice, if you're considering the sum
+of each of the node values. The rules are simple in this example. Whichever node you are standing on,
+you can only move one node down, either to your left or right.</p>
+<p>It turns out that this is called a graph. Specifically we can call it a directed, acyclic graph (DAG). Pardon
+my ignorance computer scientists. I'll just leave the wiki <a href="https://en.wikipedia.org/wiki/Directed_graph">here</a> because it gets complicated quickly and the point of my post is not to cover the details.</p>
+<p>So how do you find this maximum path through the lattice? Well I'm also not going to write out the details
+of that in this post, but <code>networkx</code> provides a wide-range of algorithms that you can execute on graphs. Of
+particular interest for this problem is <a href="https://networkx.org/documentation/latest/reference/algorithms/generated/networkx.algorithms.dag.dag_longest_path_length.html?highlight=dag#networkx-algorithms-dag-dag-longest-path-length"><code>dag_longest_path_length</code></a> but there is a whole set of algorithms for DAGs <a href="https://networkx.org/documentation/latest/reference/algorithms/dag.html#module-networkx.algorithms.dag">here</a>.</p>
+<p>The hard part of using a library like <code>networkx</code> is figuring out what your graph is (see <code>edge_info</code> below). Once you've got that you can build the graph using the APIs:</p>
+<pre><code>D = nx.DiGraph()
+D.add_weighted_edges_from(edge_info)
+print(dag.dag_longest_path_length(D))
+</code></pre>
+<p>Well that's about all I have for <code>networkx</code> at the moment. But now I want to share a bit about <code>graphviz</code>, which
+in a nutshell is a command line tool for generating visualizations of graphs. For my purposes, it suffices to say
+that it reads in text that specifies your graph (a <a href="https://en.wikipedia.org/wiki/Domain-specific_language">DSL</a>)
+and outputs an image file.</p>
+<p>Here's the command I used to generate the graph in the image above:</p>
+<pre><code>$ python3 y.py | dot -o graph.png -Tpng
+</code></pre>
+<p>I am piping the output of my script to the <code>graphviz</code> command called <code>dot</code>, which in turn generates the image.
+Here's the raw output of the python script:</p>
+<pre><code>digraph G {
+    1 -&gt; 2;
+    1 -&gt; 3;
+    2 -&gt; 4;
+    2 -&gt; 5;
+    3 -&gt; 5;
+    3 -&gt; 6;
+    1 [label=2];
+    2 [label=4];
+    3 [label=3];
+    4 [label=6];
+    5 [label=8];
+    6 [label=4];
+    1 [color=red,style=filled];
+    2 [color=red,style=filled];
+    5 [color=red,style=filled];
+}
+</code></pre>
+<p>The first six lines inside the digraph specify the nodes and edges of the graph. The next six lines just specify that I want to show value attributed to each node in my graph. The last three lines are what highlight the maximal path
+through the lattice in red.</p>
+<p>I might write more about the inner workings of the longest path algorithm, if so inclined/inspired. That's all
+for now.</p>
+</div>
+
+    </div>
+    <footer class="container fl w-100 f7">
+      &copy; Copyright 2020 by Kyle Lawlor
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" />
+      </a>
+      <br />
+      This work is licensed under a 
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+        Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+      </a>.
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> spacestationbot </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../static/tachyons.min.css?h=d39cd8e4">
+    <link rel="stylesheet" href="../../static/turretcss.min.css?h=0f187b09">
+    <link rel="stylesheet" href="../../static/styles.css?h=565d2cdc">
+  </head>
+  <body class="container pa4 black-80">
+    <header>
+      <nav class="container">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="../../">
+              Home
+            </a>
+          </li>
+          
+            <li>
+              <a href="../../about/">
+                About Me
+              </a>
+            </li>
+          
+            <li>
+              <a href="../../programming-experience/">
+                Programming
+              </a>
+            </li>
+          
+            <li>
+              <a href="../../teaching/">
+                Teaching
+              </a>
+            </li>
+          
+            <li>
+              <a href="../../contact/">
+                Contact
+              </a>
+            </li>
+          
+            <li class="active">
+              <a href="../">
+                Blog
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
+    </header>
+    <div class="fl w-100 pa3 measure-wide f4 lh-copy">
+      
+  <h2>spacestationbot</h2>
+  <div>by Kyle Lawlor-Bagcal</div>
+  <div>Wednesday, December 30, 2020<div>
+  <div><p>This is the homepage of a Discord bot named the "spacestationbot". It's main goal is to deliver you an accurate time and set of viewing coordinates for the International space station. Here's a sample of what it looks like:</p>
+<p><img src="screenshot-2020-12-30-22-25-48.png" alt="Sample message from the bot, showing coordinates and times."></p>
+<p>Under the hood, this bot uses pre-computed trajectory data called "ephemerides" <a href="https://ssd.jpl.nasa.gov/?ephemerides">from NASA's jet propulsion laboratory</a>. From this data the viewing times and angles of the ISS can be calculated, for a given location on earth's surface. The bot will always return the viewing times in the timezone of the location you entered.</p>
+<p>To add the bot to your server, <a href="https://top.gg/bot/792114782617862176">visit here</a> or directly via <a href="https://discord.com/api/oauth2/authorize?client_id=792114782617862176&amp;permissions=2048&amp;scope=bot">this link</a>. For support or feature requests please visit <a href="https://discord.gg/H244NRxyRd">this maintenance server</a>.</p>
+<p>This bot does not collect any info about it's users. However it does create a temporary cache of data on our server. This cache is used for the geocoding portion of the bot. The bot makes calls to OpenStreetMap. To prevent making unnecessary calls to that service, we cache those results for a period of time. This data does not have user info tied to that location. That said, the source code for this bot can be <a href="https://git.sr.ht/~wgwz/spacestationbot">found here</a> so you can confirm that for yourself.</p>
+<p>Happy viewing!</p>
+</div>
+
+    </div>
+    <footer class="container fl w-100 f7">
+      &copy; Copyright 2020 by Kyle Lawlor
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" />
+      </a>
+      <br />
+      This work is licensed under a 
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+        Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+      </a>.
+    </footer>
+  </body>
+</html>

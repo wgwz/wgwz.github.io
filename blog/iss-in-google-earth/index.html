@@ -107,7 +107,14 @@ visualization. Whereas traditional Google Earth is 3-D and focused on
 3-D surface modeling, and allowing you to manuever around. Would love to
 hear if I'm wrong about this.</p>
 <h4>How does it work?</h4>
-<p>Here's the interesting part of the <code>NetworkLink.kml</code> file:</p>
+<p>So Google Earth on mobile or on desktop allows you to upload a KML file.
+There are actually a lot of features in the KML spec. It even includes
+support for including loading other KML files from a server. You can
+specify how frequently it should make requests to a given resource. This
+is what allows you to get data into Google Earth in "real-time".</p>
+<p>The way I set this up is to have a single file called <code>NetworkLink.kml</code>.
+This file can be loaded into Google Earth. Subsequently requests will be
+made to the server specified below:</p>
 <pre><code>    &lt;NetworkLink&gt;
       ...
       &lt;Link&gt;
@@ -118,11 +125,16 @@ hear if I'm wrong about this.</p>
       &lt;/Link&gt;
     &lt;/NetworkLink&gt;
 </code></pre>
-<p>This means that google earth is going to poll that URL every 5 seconds to get
-fresh data. That's what enables the map to get updated in "real-time". Here's
-the interesting segments of what that URL provides to Google Earth:</p>
+<p>The above snippet means that google earth is going to poll that URL
+every 5 seconds to get fresh data. That's what enables the map to get
+updated in "real-time". The URL above just sends yet another KML file
+to Google Earth. The interesting parts of what gets sent are below:</p>
 <ol>
-<li>The current location of ISS, including the name of the city it's flying over:</li>
+<li>The current location of ISS, including the name of the city it's
+flying over. We will draw a point on the Google Earth map precisely
+where the ISS is located, including the height at which it's flying. And
+we will also draw a line from the surface of the earth to the ISS
+(extrude). Here's an example from when it was over Quebec:</li>
 </ol>
 <pre><code>  &lt;Placemark&gt;
     &lt;name&gt;ISS location now&lt;/name&gt;
@@ -139,7 +151,8 @@ the interesting segments of what that URL provides to Google Earth:</p>
   &lt;/Placemark&gt;
 </code></pre>
 <ol>
-<li>The past flight path:</li>
+<li>The past flight path. The <code>LineString</code> feature can be used to draw a
+line that connects many different points: </li>
 </ol>
 <pre><code>  &lt;Placemark&gt;
     &lt;name&gt;Past flight path&lt;/name&gt;
@@ -158,7 +171,7 @@ the interesting segments of what that URL provides to Google Earth:</p>
   &lt;/Placemark&gt;
 </code></pre>
 <ol>
-<li>The future flight path:</li>
+<li>We can do the same thing for the future flight path:</li>
 </ol>
 <pre><code>  &lt;Placemark&gt;
     &lt;name&gt;Future flight path&lt;/name&gt;

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> Debugging with IEx.pry in Phoenix </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../static/tachyons.min.css?h=d39cd8e4">
+    <link rel="stylesheet" href="../../static/turretcss.min.css?h=0f187b09">
+    <link rel="stylesheet" href="../../static/styles.css?h=565d2cdc">
+  </head>
+  <body class="container pa4 black-80">
+    <header>
+      <nav class="container">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="../../">
+              Home
+            </a>
+          </li>
+          
+            <li>
+              <a href="../../about/">
+                About Me
+              </a>
+            </li>
+          
+            <li>
+              <a href="../../programming-experience/">
+                Programming
+              </a>
+            </li>
+          
+            <li>
+              <a href="../../teaching/">
+                Teaching
+              </a>
+            </li>
+          
+            <li>
+              <a href="../../contact/">
+                Contact
+              </a>
+            </li>
+          
+            <li class="active">
+              <a href="../">
+                Blog
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
+    </header>
+    <div class="fl w-100 pa3 measure-wide f4 lh-copy">
+      
+  <h2>Debugging with IEx.pry in Phoenix</h2>
+  <div>by Kyle Lawlor-Bagcal</div>
+  <div>Monday, February 15, 2021<div>
+  <div><p>Once you've started up the Phoenix application via the quickstart guide, you can add in the ability to debug the application interactively using <code>IEx.pry</code>. There is one prerequisite step you need to do. You have to add the <code>:iex</code> "application" into your <code>mix.exs</code> file, i.e.:</p>
+<pre><code>def application do
+  [
+    mod:  {Hello.Application, []},
+    extra_applications: [:logger, :runtime_tools, :iex]
+  ]
+end
+</code></pre>
+<p>Here's a <a href="https://blog.plataformatec.com.br/2016/07/understanding-deps-and-applications-in-your-mixfile/">nice post</a> that talks about what this <code>extra_applications</code> configuration is all about. I'm new to Elixir but my understanding is that the <code>:iex</code> dependency is an application that needs to be started in your "supervision tree". Once it's started you can make use of it to debug your code. It's what will be responsible for giving you interactive terminal sessions.</p>
+<p>So the <code>:iex</code> application is now a part of the Phoenix applications supervision tree (I think..) and now we can start making use of interactive debugging sessions. So how to do that? Well just add a <code>IEx.pry</code> into your code somewhere, i.e. within <code>lib/hello_web/controllers/page_controller.ex</code>:</p>
+<pre><code>defmodule HelloWeb.PageController do
+  use HelloWeb, :controller
+
+  def index(conn, _params) do
+    require IEx; IEx.pry
+    render(conn, "index.html")
+  end
+end
+</code></pre>
+<p>This will stop the demo application right before it's about to render the main landing page HTML file for the tutorial. And it will allow you to interactively take a look at <code>conn</code> and <code>params</code>. Here's a screenshot of some of the output you will get by when you have this breakpoint in place:</p>
+<p><img src="screenshot-2021-02-15-18-05-54.png" alt="Example iex session for inspecting Phoenix controllers"></p>
+<p>Notice how the first line includes info about the incoming request. We can see that the request I was debugging was a <code>POST</code> request. It also tells you precisely with controller the request was handled by. Additionally it shows you the parameters that came along with the request. It also show's you all of the <code>Plug</code>'s that are set to run before the response will be sent.</p>
+<p>The <code>:iex</code> application asks you for permission to "pry" the given request. Assuming you say <code>y</code> to that, you'll get dropped into a iex shell. From there you can start interacting with any and all objects in the area of code your located at.</p>
+<p>This is just the beginning of using the interactive debugger in <code>iex</code>. There is much more that you can do with this. For example you could set a <code>break</code> within this interactive terminal session, if you expect another function to be causing a problem. For more on that, I direct you to the <a href="https://elixir-lang.org/getting-started/debugging.html#debugger">official docs</a>. I'll write more as I get into it, as always I'm only just scratching the surface.</p>
+<p>Also here's some <a href="https://medium.com/@diamondgfx/debugging-phoenix-with-iex-pry-5417256e1d11">prior art</a>, albeit outdated, but still likely useful.</p>
+</div>
+
+    </div>
+    <footer class="container fl w-100 f7">
+      &copy; Copyright 2020 by Kyle Lawlor
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" />
+      </a>
+      <br />
+      This work is licensed under a 
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+        Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+      </a>.
+    </footer>
+  </body>
+</html>

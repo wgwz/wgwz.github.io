@@ -80,6 +80,7 @@ regular basis. But I still find it helpful to keep in mind that a role
 for a user in an application is comprised of many permissions. Discord
 is a great example of an application that is highly configurable through
 custom roles.</p>
+<h4>Naive approach at permissions</h4>
 <p>So how can we represent a users permissions in our application? The
 upshot is that with "bit flags" you can uniquely represent the users
 role with a single integer value. But let's think about this a little
@@ -116,6 +117,7 @@ your application allows more, i.e. Discord and Jira.  Everywhere you
 need to pass the info about your users role, you would need to send
 these 3 values. And in application that has a lot of users that can
 become burdensome.</p>
+<h4>An improved approach at handling permissions</h4>
 <p>How can this be done better? This is where bit flags and bitwise
 operators come in. Let's change up the underlying representation of our
 permissions and dive into this approach:</p>
@@ -130,7 +132,7 @@ In other words, each permission is a power of 2. This has the solves the
 issue with adding the values of the roles. Therefor each sum of the
 permissions will end up unique. I.e. our standard role `COMMENT + WRITE</p>
 <ul>
-<li>EDIT = 7`.</li>
+<li>EDIT = 7`</li>
 </ul>
 <p>So great, we've solved that issue. We can now store a single integer in
 our database for every user of our application, and it will uniquely
@@ -139,6 +141,7 @@ role to customize their experience in our application. How can we do
 that? It turns out that we can actually get some more utility out of
 using binary numbers to represent roles. We can use <em>bitwise</em> operators
 as well.</p>
+<h4>Bitwise operations for working with permissions</h4>
 <p>The upshot here is that bitwise operations are <em>very</em> efficient
 operations computationally, they are also built-in to the foundation
 every programming language. Here's an example in Elixir of how we can
@@ -192,6 +195,7 @@ representation which involves storing a single integer value in your
 database. The point is that using a list has more tradeoffs than just
 performance and memory optimizations, some of which I probably have not
 even considered.</p>
+<h4>Conclusions and references</h4>
 <p>My next goals are to incorporate this into a database model, and see how
 to develop a model within Elixir and Phoenix that makes use of this type
 of a permissions scheme. I am not an expert on this method of

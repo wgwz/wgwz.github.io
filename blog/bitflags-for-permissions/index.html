@@ -56,7 +56,8 @@
   <h2>Bitflags for permissions</h2>
   <div>by Kyle Lawlor-Bagcal</div>
   <div>Tuesday, February 16, 2021<div>
-  <div><p>Recently I revisited a way to deal with permissions in an application.
+  <div><h4>Background</h4>
+<p>Recently I revisited a way to deal with permissions in an application.
 Miguel Grinberg's Flask Web Development book presented a way to do this
 with so-called "bit flags". I did not fully understand how this was
 implemented until last night. It's quite a clever way of dealing with
@@ -130,10 +131,10 @@ SUPER   = 0b10000000          = 128
 <p>What's different? Well we chose to represent the permissions in binary.
 In other words, each permission is a power of 2. This has the solves the
 issue with adding the values of the roles. Therefor each sum of the
-permissions will end up unique. I.e. our standard role `COMMENT + WRITE</p>
-<ul>
-<li>EDIT = 7`</li>
-</ul>
+permissions will end up unique. I.e. our standard role no longer conflicts
+with the <code>ADMIN</code> permission:</p>
+<pre><code>COMMENT + WRITE + EDIT = 7
+</code></pre>
 <p>So great, we've solved that issue. We can now store a single integer in
 our database for every user of our application, and it will uniquely
 represent the persons role. But we need to be able to check this persons

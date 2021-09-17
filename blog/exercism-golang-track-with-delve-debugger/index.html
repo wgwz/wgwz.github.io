@@ -81,12 +81,22 @@ You can set a breakpoint or few by saying <code>b</code> followed by the name of
 function you want to break on. You've got tools for looking at local variables,
 and evaluating code. You can use <code>c</code> to continue as with pdb and <code>n</code> to
 evaluate only to the next line of code.</p>
+<p>One area that will take getting used to is the <code>funcs</code> command to search for
+the function that you want to set a breakpoint at. It works like a filter and
+it lets you find which function you want to break on with the <code>b</code> command.</p>
 <p>Another interesting command is <code>rebuild</code>. You can make changes to your source
 code or tests, and rebuild within the <code>dlv</code> prompt. And then you can
 effectively re-run all your tests, with updated source code.</p>
 <p>This seems like a fantastic tool and I look forward to exploring it some more:</p>
 <ul>
 <li>delve: <a href="https://github.com/go-delve/delve">https://github.com/go-delve/delve</a></li>
+</ul>
+<p>Addendum:</p>
+<ul>
+<li><a href="https://trstringer.com/go-conditional-breakpoints/">Conditional debugging with delve</a></li>
+<li><a href="https://pkg.go.dev/runtime#Breakpoint">https://pkg.go.dev/runtime#Breakpoint</a></li>
+<li><a href="https://github.com/go-delve/delve/blob/master/Documentation/cli/README.md#condition">https://github.com/go-delve/delve/blob/master/Documentation/cli/README.md#condition</a></li>
+<li><a href="https://github.com/go-delve/delve/issues/1549">Performance considerations with condition debugging</a></li>
 </ul>
 </div>
 
